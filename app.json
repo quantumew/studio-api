@@ -1,0 +1,10 @@
+{
+  "name": "Studio API",
+  "description": "A Groovy and Gradle based Ratpack app for use with example studio app.",
+  "env": {
+    "GRADLE_TASK": {
+      "description": "The Gradle task that Heroku will run to build this app",
+      "value": "installDist"
+    }
+  }
+}

@@ -1,0 +1,52 @@
+plugins {
+    id "io.ratpack.ratpack-groovy" version "1.5.4"
+    id "com.github.johnrengelman.shadow" version "1.2.3"
+    id "idea"
+    id "eclipse"
+    id 'org.asciidoctor.convert' version '1.5.3'
+}
+
+repositories {
+  jcenter()
+  maven { url "https://oss.jfrog.org/repo" }
+  maven { url "https://nexus.codehaus.org/content/repositories/snapshots/" }
+  maven { url 'https://repo.spring.io/libs-snapshot' }
+}
+
+dependencies {
+  compile ratpack.dependency("h2")
+  compile ratpack.dependency("hikari")
+  compile ratpack.dependency("remote")
+  compile ratpack.dependency("dropwizard-metrics")
+  compile ratpack.dependency("rx")
+  compile ratpack.dependency("hystrix")
+  compile ratpack.dependency("pac4j")
+  compile "org.pac4j:pac4j-http:1.8.5"
+  compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.5.2'
+
+  compile 'io.jsonwebtoken:jjwt:0.9.0'
+
+  runtime 'org.apache.logging.log4j:log4j-slf4j-impl:2.2'
+  runtime 'org.apache.logging.log4j:log4j-api:2.2'
+  runtime 'org.apache.logging.log4j:log4j-core:2.2'
+  runtime 'com.lmax:disruptor:3.3.0'
+
+  testCompile "org.spockframework:spock-core:1.0-groovy-2.4", {
+      exclude module: "groovy-all"
+  }
+  testCompile "org.gebish:geb-spock:0.13.0", {
+      exclude module: "groovy-all"
+  }
+  testCompile ratpack.dependency("remote-test")
+}
+
+idea {
+    project {
+        jdkName "1.8"
+        languageLevel "1.8"
+        vcs 'Git'
+    }
+}
+
+// some CI config
+apply from: "gradle/restdocs.gradle"
